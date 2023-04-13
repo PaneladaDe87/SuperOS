@@ -5,6 +5,12 @@ section .text
     global _start
 
 _start
+    mov ax, 0x4F02
+    mov bx, 0x4114
+    int 0x10
+    test ah, ah
+    jnz error
+
     mov ecx, url_repo
     mov ecx, interval
 
