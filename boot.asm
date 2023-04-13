@@ -15,7 +15,7 @@ loop:
     mov eax, 1
     mov [last_response], al
 
-last_responde:
+last_response:
     mov eax, 2
 
     jmp loop
