@@ -1,10 +1,21 @@
 section .data
+    apps db 'A1', 0
+         db 'A2', 0
+         db 'A3', 0
+    app_count equ $/8
+
     last_response db 0
 
 section .text
     global _start
 
 _start
+    mov ecx, apps
+    mov ebx, 0
+    mov edi, 0
+    mov esi, 40
+    mov edx, app_count
+
     mov ax, 0x4F02
     mov bx, 0x4114
     int 0x10
