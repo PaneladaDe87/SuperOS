@@ -28,6 +28,24 @@ _start
     mov eax, 0
     jmp exit
 
+    loop_apps:
+        pushad
+
+        mov eax, [ecx]
+        call draw_app
+
+        popad
+
+        add ebx, 0
+        add edi, esi
+        add ecx, 8
+        dec edx
+        jnz loop_apps
+
+    mov eax, 1
+    xor ebx, ebx
+    int 0x80
+
 exit:
     mov ebx, eax
     mov eax, 1
@@ -44,3 +62,6 @@ last_response:
     mov eax, 2
 
     jmp loop
+
+draw_app:
+    ret
