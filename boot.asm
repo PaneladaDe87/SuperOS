@@ -14,6 +14,14 @@ _start
     mov ecx, url_repo
     mov ecx, interval
 
+    mov eax, 0
+    jmp exit
+
+exit:
+    mov ebx, eax
+    mov eax, 1
+    int 0x80
+
 loop:
     mov eax, 0
     cmp al, [last_response]
