@@ -2,14 +2,14 @@ section .data
     apps db 'A1', 0
          db 'A2', 0
          db 'A3', 0
-    app_count equ $/8
+    app_count equ ($ - apps) / 2
 
     last_response db 0
 
 section .text
     global _start
 
-_start
+_start:
     mov ecx, apps
     mov ebx, 0
     mov edi, 0
@@ -22,40 +22,32 @@ _start
     test ah, ah
     jnz error
 
-    mov ecx, url_repo
-    mov ecx, interval
+    mov eax, url_repo
+    mov eax, interval
 
-    mov eax, 0
-    jmp exit
+loop_apps:
+    pushad
 
-    loop_apps:
-        pushad
+    movzx eax, byte [ecx]
+    call draw_app
 
-        mov eax, [ecx]
-        call draw_app
+    popad
 
-        popad
-
-        add ebx, 0
-        add edi, esi
-        add ecx, 8
-        dec edx
-        jnz loop_apps
-
-    mov eax, 1
-    xor ebx, ebx
-    int 0x80
+    add ebx, 0
+    add edi, esi
+    add ecx, 2
+    dec edx
+    jnz loop_apps
 
 exit:
-    mov ebx, eax
     mov eax, 1
+    xor ebx, ebx
     int 0x80
 
 loop:
     mov eax, 0
     cmp al, [last_response]
     je no_update
-    mov eax, 1
     mov [last_response], al
 
 last_response:
