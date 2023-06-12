@@ -1,0 +1,60 @@
+name: Build Bootloader
+
+on:
+
+  push:
+
+    branches:
+
+      - main
+
+  pull_request:
+
+    branches:
+
+      - main
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout repository
+
+      uses: actions/checkout@v2
+
+    - name: Set up QEMU
+
+      uses: docker://multiarch/qemu-user-static:register
+
+    - name: Install dependencies
+
+      run: |
+
+        sudo apt-get update
+
+        sudo apt-get install -y build-essential gcc-aarch64-linux-gnu
+
+    - name: Build bootloader
+
+      run: |
+
+        cd bootloader
+
+        make clean
+
+        make
+
+    - name: Upload bootloader artifact
+
+      uses: actions/upload-artifact@v2
+
+      with:
+
+        name: bootloader
+
+        path: bootloader_directory/bootloader.bin
+
