@@ -25,14 +25,14 @@ jobs:
       - name: Checkout Repository
 
         uses: actions/checkout@v2
+        
+      - name: Setup cmake
 
-      - name: Set up C++ Compiler
-
-        uses: actions/setup-cmake@v1
+        uses: jwlawson/actions-setup-cmake@v1.13
 
         with:
 
-          cmake-version: '3.x' # Insira a versão do CMake que você deseja usar
+          cmake-version: '3.16.x'
 
       - name: Build Project
 
