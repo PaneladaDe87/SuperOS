@@ -1,0 +1,34 @@
+name: BUILD BOOT
+
+on:
+  push:
+    branches: [ "main" ]
+	
+  workflow_dispatch:
+  
+jobs:
+  buildRPI:
+    runs-on: ubuntu-lastest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+        
+      - name: Set up QEMU
+        uses: docker://multiarch/qemu-user-static:register
+        
+      - name: Install shit
+        run: |
+          apt-get update
+          apt-get install -y build-essential gcc-aarch64-linux-gnu
+          
+      - name: Build LMAO
+        run: |
+          cd bootloader
+          make clean
+          make
+          
+      - name: Upload shit
+        uses: actions/upload-artfact@v2
+        with:
+          name: Boot
+          path: bootloader/boot.bin
