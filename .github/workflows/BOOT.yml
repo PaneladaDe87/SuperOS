@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-	
+      
   workflow_dispatch:
   
 jobs:
@@ -29,7 +29,7 @@ jobs:
           make
           
       - name: Upload shit
-        uses: actions/upload-artfact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: Boot
           path: bootloader/boot.bin
