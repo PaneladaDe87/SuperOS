@@ -46,5 +46,8 @@ jobs:
 
           make
 
-      # Se necessário, adicione etapas adicionais, como testes ou empacotamento do seu sistema operacional.
-
+      - name: Upload shit
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: ./build
